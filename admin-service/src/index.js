@@ -7,5 +7,5 @@ const app = express();
 
 
 app.listen(3001, () => {
-    console.log(`Admin Server running on port ${3001}`)
+    console.log(`Admin Services running on port ${3001}`)
 })
