@@ -7,5 +7,5 @@ const app = express();
 
 
 app.listen(3003, () => {
-    console.log(`Movie Server running on port ${3003}`)
+    console.log(`Movie Services running on port ${3003}`)
 })
