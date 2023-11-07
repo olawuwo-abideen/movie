@@ -7,5 +7,5 @@ const app = express();
 
 
 app.listen(3002, () => {
-    console.log(`Actor Server running on port ${3002}`)
+    console.log(`User Services running on port ${3002}`)
 })
