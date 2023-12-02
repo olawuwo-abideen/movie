@@ -20,7 +20,6 @@ class ErrorLogger {
             message: `${new Date()}-${JSON.stringify(err)}`
           });
         console.log('==================== End Error Logger ===============');
-        // log error with Logger plugins
       
         return false;
     }
@@ -40,7 +39,7 @@ const ErrorHandler = async(err,req,res,next) => {
 
     process.on('uncaughtException', (reason, promise) => {
         console.log(reason, 'UNHANDLED');
-        throw reason; // need to take care
+        throw reason;
     })
 
     process.on('uncaughtException', (error) => {
