@@ -58,9 +58,9 @@ module.exports = (app, channel) => {
        return res.json(data);
     });
     
-    app.get('/watchlater', UserAuth, async (req,res,next) => {
+    app.get('/wishlist', UserAuth, async (req,res,next) => {
         const { _id } = req.user;
-        const { data } = await service.GetWatchLater( _id);
+        const { data } = await service.GetWishList( _id);
         return res.status(StatusCodes.OK).json(data);
     });
 
