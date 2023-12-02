@@ -9,7 +9,7 @@ app.use(express.json());
 
 
 app.use('/admin', proxy('http://localhost:3001'))
-app.use('/user', proxy('http://localhost:3002'))
+app.use('/customer', proxy('http://localhost:3002'))
 app.use('/movie', proxy('http://localhost:3003'))
 app.use('/actor', proxy('http://localhost:3004'))
 app.use('/payment', proxy('http://localhost:3005'))
@@ -18,5 +18,5 @@ app.use('/review', proxy('http://localhost:3007'))
 app.use('/watchlist', proxy('http://localhost:3008'))
 
 app.listen(3000, () => {
-    console.log('Gateway is Listening to Port 3000')
+    console.log('Gateway is Listening on Port 3000')
 })
