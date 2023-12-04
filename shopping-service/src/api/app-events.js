@@ -12,7 +12,6 @@ module.exports = (app) => {
         
         console.log(payload);
 
-         //handle subscribe events
          service.SubscribeEvents(payload);
          
        return res.status(StatusCodes.OK).json({message: 'notified!'});

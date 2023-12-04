@@ -68,8 +68,6 @@ module.exports = (app, channel) => {
       { movieId: req.body._id },
       "ADD_TO_WISHLIST"
     );
-
-    // PublishCustomerEvent(data);
     PublishMessage(channel, CUSTOMER_SERVICE, JSON.stringify(data));
 
     res.status(StatusCodes.OK).json(data.data.product);
@@ -84,7 +82,6 @@ module.exports = (app, channel) => {
       { movieId },
       "REMOVE_FROM_WISHLIST"
     );
-    // PublishCustomerEvent(data);
     PublishMessage(channel, CUSTOMER_SERVICE, JSON.stringify(data));
 
     res.status(StatusCodes.OK).json(data.data.movie);
@@ -126,11 +123,11 @@ module.exports = (app, channel) => {
     res.status(StatusCodes.OK).json(response);
   });
 
-  //get Top products and category
-  app.get("/", async (req, res, next) => {
+  app.get("/movies", async (req, res, next) => {
     //check validation
     try {
-      const { data } = await service.GetMoviess();
+      const { _id } = req.user;
+      const { data } = await service.GetMovies();
       return res.status(StatusCodes.OK).json(data);
     } catch (error) {
       return res.status(StatusCodes.NOT_FOUND).json({ error });
