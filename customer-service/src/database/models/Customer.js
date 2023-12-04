@@ -12,10 +12,10 @@ const CustomerSchema = new Schema({
     ],
     cart: [
         {
-          product: { 
+          movie: { 
                 _id: { type: String, require: true},
-                name: { type: String},
-                banner: { type: String},
+                title: { type: String},
+                genre: { type: String},
                 price: { type: Number},
             },
           unit: { type: Number, require: true}
@@ -24,16 +24,16 @@ const CustomerSchema = new Schema({
     wishlist:[
         {
             _id: { type: String, require: true },
-            name: { type: String },
-            description: { type: String },
-            avalable: { type: Boolean },
+            title: { type: String },
+            genre: { type: String },
+            available: { type: Boolean },
             price: { type: Number },
         }
     ],
     orders: [
         {
             _id: {type: String, required: true},
-            amount: { type: String},
+            amount: { type: Number},
             date: {type: Date, default: Date.now()}
         }
     ]
