@@ -11,7 +11,7 @@ app.use(express.json());
 app.use('/admin', proxy('http://localhost:3001'))
 app.use('/customer', proxy('http://localhost:3002'))
 app.use('/movie', proxy('http://localhost:3003'))
-app.use('/actor', proxy('http://localhost:3004'))
+app.use('/shopping', proxy('http://localhost:3004'))
 app.use('/payment', proxy('http://localhost:3005'))
 app.use('/recommendation', proxy('http://localhost:3006'))
 app.use('/review', proxy('http://localhost:3007'))

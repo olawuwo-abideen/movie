@@ -69,11 +69,11 @@ module.exports.PublishCustomerEvent = async (payload) => {
 };
 
 module.exports.PublishShoppingEvent = async (payload) => {
-  // axios.post('http://gateway:8000/shopping/app-events/',{
+  // axios.post('http://gateway:3004/shopping/app-events/',{
   //         payload
   // });
 
-  axios.post(`http://shopping:30005/app-events/`, {
+  axios.post(`http://shopping:3004/app-events/`, {
     payload,
   });
 };
