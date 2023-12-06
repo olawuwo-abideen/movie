@@ -1,3 +1,4 @@
+const { StatusCodes } = require('http-status-codes');
 module.exports = (app) => {
     
 
@@ -8,7 +9,7 @@ module.exports = (app) => {
         console.log("============= Payment ================");
         console.log(payload);
 
-        return res.status(200).json({ message: 'notified!'});
+        return res.status(StatusCodes.OK).json({ message: 'notified!'});
  
     });
 
