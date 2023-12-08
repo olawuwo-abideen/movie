@@ -1,6 +1,6 @@
 const express = require('express');
 const cors  = require('cors');
-const { notification, appEvents } = require('./api');
+const { movies, appEvents } = require('./api');
 const { CreateChannel, SubscribeMessage } = require('./utils')
 
 module.exports = async (app) => {
