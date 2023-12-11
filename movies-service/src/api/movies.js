@@ -18,7 +18,7 @@ module.exports = (app, channel) => {
     const { data } = await service.CreateMovie({
       title, 
       genre, 
-      releaseYear, 
+      releaseYear,  
       director, 
       plot, 
       rating, 
@@ -100,7 +100,7 @@ module.exports = (app, channel) => {
     PublishMessage(channel, CUSTOMER_SERVICE, JSON.stringify(data));
     PublishMessage(channel, SHOPPING_SERVICE, JSON.stringify(data));
 
-    const response = { product: data.data.movie, unit: data.data.qty };
+    const response = { movie: data.data.movie, unit: data.data.qty };
 
     res.status(StatusCodes.OK).json(response);
   });
