@@ -33,7 +33,7 @@ class MovieRepository {
         return movies;
     }
 
-    async FindSelectedProducts(selectedIds){
+    async FindSelectedMovies(selectedIds){
         const movies = await MovieModel.find().where('_id').in(selectedIds.map(_id => _id)).exec();
         return movies;
     }

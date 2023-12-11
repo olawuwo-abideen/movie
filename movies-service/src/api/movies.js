@@ -3,7 +3,7 @@ const { CUSTOMER_SERVICE, SHOPPING_SERVICE } = require("../config");
 const MovieService = require("../services/movie-service");
 const {
   PublishCustomerEvent,
-  PublishShoppingEvent,
+  PublishShoppingEvent, 
   PublishMessage,
 } = require("../utils");
 const UserAuth = require("./middlewares/auth");
@@ -77,7 +77,7 @@ module.exports = (app, channel) => {
     const { _id } = req.user;
     const movieId = req.params.id;
 
-    const { data } = await service.GetProductPayload(
+    const { data } = await service.GetMoviePayload(
       _id,
       { movieId },
       "REMOVE_FROM_WISHLIST"
