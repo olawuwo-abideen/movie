@@ -77,7 +77,7 @@ class CustomerRepository {
             if(wishlist.length > 0){
                 let isExist = false;
                 wishlist.map(item => {
-                    if(item._id.toString() === product._id.toString()){
+                    if(item._id.toString() === movie._id.toString()){
                        const index = wishlist.indexOf(item);
                        wishlist.splice(index,1);
                        isExist = true;
@@ -85,11 +85,11 @@ class CustomerRepository {
                 });
 
                 if(!isExist){
-                    wishlist.push(product);
+                    wishlist.push(movie);
                 }
 
             }else{
-                wishlist.push(product);
+                wishlist.push(movie);
             }
 
             profile.wishlist = wishlist;
@@ -98,11 +98,11 @@ class CustomerRepository {
         const profileResult = await profile.save();      
 
         return profileResult.wishlist;
+ 
+    } catch(err)
 
-    }
 
-
-    async AddCartItem(customerId, { _id, name, price, banner},qty, isRemove){
+    async AddCartItem(customerId, { _id, name, price},qty, isRemove){
 
  
         const profile = await CustomerModel.findById(customerId).populate('cart');
@@ -111,7 +111,7 @@ class CustomerRepository {
         if(profile){ 
  
             const cartItem = {
-                product: { _id, name, price, banner },
+                product: { _id, name, price  },
                 unit: qty,
             };
           
