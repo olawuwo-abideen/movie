@@ -74,12 +74,12 @@ class CustomerService {
     }
 
     async AddToWishlist(customerId, product){
-         const wishlistResult = await this.repository.AddWishlistItem(customerId, product);        
+         const wishlistResult = await this.repository.AddWishlistItem(customerId, movie);        
         return FormateData(wishlistResult);
     }
 
-    async ManageCart(customerId, product, qty, isRemove){
-        const cartResult = await this.repository.AddCartItem(customerId, product, qty, isRemove);        
+    async ManageCart(customerId, movie, qty, isRemove){
+        const cartResult = await this.repository.AddCartItem(customerId, movie, qty, isRemove);        
        return FormateData(cartResult);
     }
 
@@ -96,18 +96,18 @@ class CustomerService {
 
         const { event, data } =  payload;
 
-        const { userId, product, order, qty } = data;
+        const { userId, movie, order, qty } = data;
 
         switch(event){
             case 'ADD_TO_WISHLIST':
             case 'REMOVE_FROM_WISHLIST':
-                this.AddToWishlist(userId,product)
+                this.AddToWishlist(userId,movie)
                 break;
             case 'ADD_TO_CART':
-                this.ManageCart(userId,product, qty, false);
+                this.ManageCart(userId,movie, qty, false);
                 break;
             case 'REMOVE_FROM_CART':
-                this.ManageCart(userId,product,qty, true);
+                this.ManageCart(userId,movie,qty, true);
                 break;
             case 'CREATE_ORDER':
                 this.ManageOrder(userId,order);
