@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /app/customer
+WORKDIR /app/shopping-service
 
 COPY package.json .
 
@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8001
+EXPOSE 3004
 
 CMD ["npm", "start"]
