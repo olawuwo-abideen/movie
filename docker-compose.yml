@@ -1,0 +1,151 @@
+version: "1"
+services:
+  nosql-db:
+    image: mvertes/alpine-mongo
+    ports:
+      - "27018:27017"
+    container_name: nosql-db
+    volumes:
+      - ./db/:/data/db
+
+  rabbitmq:
+    image: rabbitmq:alpine
+    container_name: rabbitmq
+    ports:
+      - '5672:5672'
+
+  admin:
+    build:
+      dockerfile: Dockerfile
+      context: ./admin-service
+    container_name: admin
+    ports:
+      - "3001:3001"
+    restart: always
+    depends_on:
+      - "nosql-db"
+      - "rabbitmq"
+    volumes:
+      - .:/app
+      - /app/admin-service/node_modules
+
+    env_file:
+      - ./admin-service/.env.dev
+
+  customer:
+    build:
+      dockerfile: Dockerfile
+      context: ./customer-service
+    container_name: customer
+    ports:
+      - "3002:3002"
+    restart: always
+    depends_on:
+      - "nosql-db"
+      - "rabbitmq"
+    volumes:
+      - .:/app
+      - /app/customer-service/node_modules
+    env_file:
+      - ./customer-service/.env.dev
+
+  movie:
+    build:
+      dockerfile: Dockerfile
+      context: ./movie-service
+    container_name: movie
+    ports:
+      - "3003:3003"
+    restart: always
+    depends_on:
+      - "nosql-db"
+      - "rabbitmq"
+    volumes:
+      - .:/app/
+      - /app/movie-service/node_modules
+    env_file:
+      - ./movie-service/.env.dev
+
+  shopping:
+    build:
+      dockerfile: Dockerfile
+      context: ./shopping-service
+    container_name: shopping
+    ports:
+      - "3004:3004"
+    restart: always
+    depends_on:
+      - "nosql-db"
+      - "rabbitmq"
+    volumes:
+      - .:/app/
+      - /app/shopping-service/node_modules
+    env_file:
+      - ./shopping-service/.env.dev
+
+  payment:
+    build:
+      dockerfile: Dockerfile
+      context: ./payment-service
+    container_name: payment
+    ports:
+      - "3005:3005"
+    restart: always
+    depends_on:
+      - "nosql-db"
+      - "rabbitmq"
+    volumes:
+      - .:/app/
+      - /app/payment-service/node_modules
+    env_file:
+      - ./payment-service/.env.dev
+
+  notification:
+    build:
+      dockerfile: Dockerfile
+      context: ./notification-service
+    container_name: notification
+    ports:
+      - "3006:3006"
+    restart: always
+    depends_on:
+      - "nosql-db"
+      - "rabbitmq"
+    volumes:
+      - .:/app/
+      - /app/notification-service/node_modules
+    env_file:
+      - ./notification-service/.env.dev
+
+  delivery:
+    build:
+      dockerfile: Dockerfile
+      context: ./delivery-service
+    container_name: delivery
+    ports:
+      - "3007:3007"
+    restart: always
+    depends_on:
+      - "nosql-db"
+      - "rabbitmq"
+    volumes:
+      - .:/app/
+      - /app/delivery-service/node_modules
+    env_file:
+      - ./delivery-service/.env.dev
+
+  nginx-proxy:
+    build:
+      dockerfile: Dockerfile
+      context: ./proxy
+    depends_on:
+      - admin-service
+      - customer-service
+      - movie-service
+      - shopping-service
+      - payment-service
+      - notification-service
+      - delivery-service
+
+    ports:
+      - 80:80
