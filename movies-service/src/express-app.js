@@ -13,7 +13,10 @@ module.exports = async (app) => {
     const channel = await CreateChannel()
 
     
-    customer(app, channel);
+    movies(app, channel);
  
     
 }
+
+
+

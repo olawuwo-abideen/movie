@@ -102,8 +102,8 @@ class CustomerRepository {
     } catch(err)
 
 
-    async AddCartItem(customerId, { _id, name, price},qty, isRemove){
 
+    async AddCartItem(customerId, { _id, name, price},qty, isRemove){
  
         const profile = await CustomerModel.findById(customerId).populate('cart');
 
