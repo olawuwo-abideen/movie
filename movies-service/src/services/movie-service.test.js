@@ -1,6 +1,6 @@
-describe("CustomerService", () => {
+describe("MovieService", () => {
 
-  describe("SignIn", () => {
+  describe("CreateMovie", () => {
 
     test("validate user inputs", () => {});
 
