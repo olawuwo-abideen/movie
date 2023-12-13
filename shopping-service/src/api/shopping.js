@@ -11,60 +11,66 @@ module.exports = (app, channel) => {
 
     SubscribeMessage(channel, service)
 
-    app.post('/order', UserAuth, async (req,res,next) => {
 
-        const { _id } = req.user;
-        const { txnNumber } = req.body;
+      // Cart
+  app.post("/cart", UserAuth, async (req, res, next) => {
+    const { _id } = req.user;
+    const { movie_id, qty } = req.body;
+    const { data } = await service.AddCartItem(_id, movie_id, qty);
+    res.status(StatusCodes.OK).json(data);
+  });
 
-        const { data } = await service.PlaceOrder({_id, txnNumber});
-        
-        const payload = await service.GetOrderPayload(_id, data, 'CREATE_ORDER')
-        PublishMessage(channel,CUSTOMER_SERVICE, JSON.stringify(payload))
+  app.delete("/cart/:id", UserAuth, async (req, res, next) => {
+    const { _id } = req.user;
+    const movieId = req.params.id;
+    const { data } = await service.RemoveCartItem(_id, movieId);
+    res.status(StatusCodes.OK).json(data);
+  });
 
-        res.status(StatusCodes.OK).json(data);
+  app.get("/cart", UserAuth, async (req, res, next) => {
+    const { _id } = req.user;
+    const data = await service.GetCart(_id);
+    return res.status(StatusCodes.OK).json(data);
+  });
 
-    });
+  // Wishlist
+  app.post("/wishlist", UserAuth, async (req, res, next) => {
+    const { _id } = req.user;
+    const { movie_id } = req.body;
+    console.log(req.body);
+    const data = await service.AddToWishlist(_id, movie_id);
+    return res.status(StatusCodes.OK).json(data);
+  });
+  app.get("/wishlist", UserAuth, async (req, res, next) => {
+    const { _id } = req.user;
+    const data = await service.GetWishlist(_id);
+    return res.status(StatusCodes.OK).json(data);
+  });
+  app.delete("/wishlist/:id", UserAuth, async (req, res, next) => {
+    const { _id } = req.user;
+    const movie_id = req.params.id;
+    const data = await service.RemoveFromWishlist(_id, movie_id);
+    return res.status(StatusCodes.OK).json(data);
+  });
 
-    app.get('/orders',UserAuth, async (req,res,next) => {
+  // Orders
+  app.post("/order", UserAuth, async (req, res, next) => {
+    const { _id } = req.user;
+    const { txnNumber } = req.body;
+    const data = await service.CreateOrder(_id, txnNumber);
+    return res.status(StatusCodes.OK).json(data);
+  });
 
-        const { _id } = req.user;
+  app.get("/order/:id", UserAuth, async (req, res, next) => {
+    const { _id } = req.user;
+    const data = await service.GetOrder(_id);
+    return res.status(StatusCodes.OK).json(data);
+  });
 
-        const { data } = await service.GetOrders(_id);
-        
-        res.status(StatusCodes.OK).json(data);
+  app.get("/orders", UserAuth, async (req, res, next) => {
+    const { _id } = req.user;
+    const data = await service.GetOrders(_id);
+    return res.status(StatusCodes.OK).json(data);
+  });
 
-    });
-
-    app.put('/cart',UserAuth, async (req,res,next) => {
-
-        const { _id } = req.user;
-
-        const { data } = await service.AddToCart(_id, req.body._id);
-        
-        res.status(StatusCodes.OK).json(data);
-
-    });
-
-    app.delete('/cart/:id',UserAuth, async (req,res,next) => {
-
-        const { _id } = req.user;
-
-
-        const { data } = await service.AddToCart(_id, req.body._id);
-        
-        res.status(StatusCodes.OK).json(data);
-
-    });
-    
-    app.get('/cart', UserAuth, async (req,res,next) => {
-
-        const { _id } = req.user;
-        
-        const { data } = await service.GetCart({ _id });
-
-        return res.status(StatusCodes.OK).json(data);
-    });
-
-
- 
 }

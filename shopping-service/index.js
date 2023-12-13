@@ -6,6 +6,6 @@ const mongoose = require('mongoose');
 const app = express();
 
 
-app.listen(3007, () => {
-    console.log(`Review Services running on port ${3007}`)
+app.listen(3004, () => {
+    console.log(`Shopping Services running on port ${3004}`)
 })
