@@ -1,0 +1,105 @@
+name: Deploy on Production
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy_on_prod:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+      
+      - name: Create admin-services Env file
+        working-directory: ./admin-service
+        run: |
+          touch .env
+          echo APP_SECRET=${{ secrets.QA_APP_SECRET }} >> .env
+          echo MONGODB_URI=${{ secrets.QA_ADMIN_DB_URL }} >> .env
+          echo MSG_QUEUE_URL=${{ secrets.QA_MSG_QUEUE_URL }} >> .env
+          echo EXCHANGE_NAME=RENTAL_STORE >> .env
+          echo PORT=3001 >> .env
+          cat .env
+
+      - name: Create customer-service Env file
+        working-directory: ./customer-service
+        run: |
+          touch .env
+          echo APP_SECRET=${{ secrets.QA_APP_SECRET }} >> .env
+          echo MONGODB_URI=${{ secrets.QA_CUSTOMER_DB_URL }} >> .env
+          echo MSG_QUEUE_URL=${{ secrets.QA_MSG_QUEUE_URL }} >> .env
+          echo EXCHANGE_NAME=RENTAL_STORE >> .env
+          echo PORT=3002 >> .env
+          cat .env
+          
+      - name: Create movie-service Env file
+        working-directory: ./movie-service
+        run: |
+          touch .env
+          echo APP_SECRET=${{ secrets.QA_APP_SECRET }} >> .env
+          echo MONGODB_URI=${{ secrets.QA_MOVIE_DB_URL }} >> .env
+          echo MSG_QUEUE_URL=${{ secrets.QA_MSG_QUEUE_URL }} >> .env
+          echo EXCHANGE_NAME=RENTAL_STORE >> .env
+          echo PORT=3003 >> .env
+          cat .env
+
+      - name: Create shopping-service Env file
+        working-directory: ./shopping-service
+        run: |
+          touch .env
+          echo APP_SECRET=${{ secrets.QA_APP_SECRET }} >> .env
+          echo MONGODB_URI=${{ secrets.QA_SHOPPING_DB_URL }} >> .env
+          echo MSG_QUEUE_URL=${{ secrets.QA_MSG_QUEUE_URL }} >> .env
+          echo EXCHANGE_NAME=RENTAL_STORE >> .env
+          echo PORT=3004 >> .env
+          cat .env
+
+      - name: Create payment-service Env file
+        working-directory: ./products
+        run: |
+          touch .env
+          echo APP_SECRET=${{ secrets.QA_APP_SECRET }} >> .env
+          echo MONGODB_URI=${{ secrets.QA_PAYMENT_DB_URL }} >> .env
+          echo MSG_QUEUE_URL=${{ secrets.QA_MSG_QUEUE_URL }} >> .env
+          echo EXCHANGE_NAME=RENTAL_STORE >> .env
+          echo PORT=3005 >> .env
+          cat .env
+          
+      - name: Create notification-service Env file
+        working-directory: ./notification-service
+        run: |
+          touch .env
+          echo APP_SECRET=${{ secrets.QA_APP_SECRET }} >> .env
+          echo MONGODB_URI=${{ secrets.QA_NOTIFICATION_DB_URL }} >> .env
+          echo MSG_QUEUE_URL=${{ secrets.QA_MSG_QUEUE_URL }} >> .env
+          echo EXCHANGE_NAME=RENTAL_STORE >> .env
+          echo PORT=3006 >> .env
+          cat .env    
+                
+      - name: Create delivery-service Env file
+        working-directory: ./delivery-service
+        run: |
+          touch .env
+          echo APP_SECRET=${{ secrets.QA_APP_SECRET }} >> .env
+          echo MONGODB_URI=${{ secrets.QA_DELIVERY_DB_URL }} >> .env
+          echo MSG_QUEUE_URL=${{ secrets.QA_MSG_QUEUE_URL }} >> .env
+          echo EXCHANGE_NAME=RENTAL_STORE >> .env
+          echo PORT=3007 >> .env
+          cat .env
+          
+      - name: Generate deployment package
+        run: |
+          zip -r deploy.zip . -x '*.git'
+      
+      - name: Deploy on Elastic beanstalk PROD Env
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: rental-store
+          environment_name: rentalstore-env
+          version_label: "ver-${{ github.sha }}"
+          region: eu-central-1
+          deployment_package: rental-store.zip
