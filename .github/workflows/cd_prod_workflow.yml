@@ -98,8 +98,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: rental-store
-          environment_name: rentalstore-env
+          application_name: rental-store-prod
+          environment_name: rentalstoreprod-env
           version_label: "ver-${{ github.sha }}"
           region: eu-central-1
-          deployment_package: rental-store.zip
+          deployment_package: rental-store-prod.zip
