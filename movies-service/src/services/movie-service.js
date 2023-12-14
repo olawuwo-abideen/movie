@@ -66,8 +66,24 @@ class MovieService {
         }
 
     }
- 
+   // RPC Response
+   async serveRPCRequest(payload) {
+    const { type, data } = payload;
+    switch (type) {
+      case "VIEW_MOVIE":
+        return this.repository.FindById(data);
+        break;
+      case "VIEW_MOVIES":
+        return this.repository.FindSelectedMovies(data);
+      default:
+        break;
+    }
+  }
 
 }
+
+
+
+
 
 module.exports = MovieService;
