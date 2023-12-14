@@ -7,7 +7,6 @@ const { StatusCodes } = require('http-status-codes');
 module.exports = (app, channel) => {
     
     const service = new CustomerService();
-
     app.post("/signup", async (req, res, next) => {
         try {
           const { email, password, phone } = req.body;
@@ -18,7 +17,6 @@ module.exports = (app, channel) => {
         }
       });
     
-
     app.post("/login", async (req, res, next) => {
         try {
           const { email, password } = req.body;
@@ -29,8 +27,7 @@ module.exports = (app, channel) => {
         }
       });
 
-      
-  app.post("/address", UserAuth, async (req, res, next) => {
+    app.post("/address", UserAuth, async (req, res, next) => {
         try {
         const { _id } = req.user;
         const { street, postalCode, city, country } = req.body;
@@ -45,8 +42,7 @@ module.exports = (app, channel) => {
         next(error);
         }
     });
-        
-
+    
     app.get("/profile", UserAuth, async (req, res, next) => {
         try {
           const { _id } = req.user;
