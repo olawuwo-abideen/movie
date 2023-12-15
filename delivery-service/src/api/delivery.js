@@ -10,7 +10,7 @@ module.exports = (app, channel) => {
     app.post("/signup", async (req, res, next) => {
         try {
           const { email, password, phone, firstName, lastName, } = req.body;
-          const data = await service.SignUp({ email, password, phone, firstName, lastName, });
+          const data = await service.SignUp({ email, password, phone, firstName, lastName });
           return res.status(StatusCodes.OK).json(data);
         } catch (error) {
           next(error);
