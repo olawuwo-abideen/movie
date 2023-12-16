@@ -6,7 +6,7 @@ const { StatusCodes } = require('http-status-codes');
 
 module.exports = (app, channel) => {
     
-    const service = new CustomerService();
+    const service = new NotificationService();
 
     // To listen
     SubscribeMessage(channel, service);
