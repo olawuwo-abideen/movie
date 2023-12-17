@@ -4,11 +4,10 @@ const Schema = mongoose.Schema;
 
 const NotificationSchema = new Schema(
   {
-    email: String,
-    password: String,
-    salt: String,
-    phone: String,
-    address: [{ type: Schema.Types.ObjectId, ref: "address", require: true }],
+    customer: [{ type: Schema.Types.ObjectId, ref: "customer", require: true }],
+    delivery: [{ type: Schema.Types.ObjectId, ref: "delivery", require: true }],
+    order: [{ type: Schema.Types.ObjectId, ref: "order", require: true }],
+    movie: [{ type: Schema.Types.ObjectId, ref: "movie", require: true }]
   },
   {
     toJSON: {
