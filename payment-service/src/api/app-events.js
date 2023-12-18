@@ -6,7 +6,7 @@ module.exports = (app) => {
 
         const { payload } = req.body;
 
-        console.log("============= Payment ================");
+        console.log("============= Payment Service Received Event================");
         console.log(payload);
 
         return res.status(StatusCodes.OK).json({ message: 'notified!'});
