@@ -64,12 +64,9 @@ The following API endpoints are available:
 
 ## Admin Service
 
-- `POST /api/v1/authors` - Register an author
-- `GET /api/v1/authors` - Get all authors
-- `GET /api/v1/authors/:id` - Get an author
-- `GET /api/v1/authors/:id/books` - Get an author book
-- `PATCH /api/v1/authors/:id` - Update an author
-- `DELETE /api/v1/authors/:id` - Delete an Author
+- `POST /api/movie` - Create a movie
+- `DELETE /api/movie` - Delete a movie
+
 
 ## Customer Service
 
