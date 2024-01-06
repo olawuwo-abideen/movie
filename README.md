@@ -1,7 +1,6 @@
 # Movie
 
-Backend to Movie Rental application that allows book enthusiasts to browse, search for, purchase, and manage their
-books collections, bookstore can add books, track booksales and create account for their employees. This application aims to provide an extensive libraryof books and seamless e-commerce features.
+Backend to Movie Rental application that allows movie enthusiasts to browse, search for, rent,and manage their movie collections, admin can add and delete movies, customer can sigup and order for video rentage,  delivery user can create account and deliver movie to customer. 
 
 ## Built With:
 
@@ -64,64 +63,56 @@ The following API endpoints are available:
 
 ## Admin Service
 
-- `POST /api/movie` - Create a movie
-- `DELETE /api/movie` - Delete a movie
+- `POST /movie` - Create a movie
+- `DELETE /movie` - Delete a movie
 
 
 ## Customer Service
 
-- `POST /api/v1/book` - Create a book
-- `GET /api/v1/books` - Get all books
-- `GET /api/v1//book/:id` - Get a book
-- `GET /api/book/:id/authors` - Get an author books
-- `GET /api/book/:id/reviews` - Get a book reviews
-- `PATCH /api/v1//book/:id` - Update a book
-- `DELETE /api/v1/book/:id` - Delete an book
+- `POST /customer/signup` - Create a customer account
+- `POST /customer/login` - Customer login
+- `GET /customer/address` - Get customer address
+- `GET customer/profile` - Get customer profile
 
 ## Delivery Service
-
-- `POST /api/v1/booksales` - Create a book sold
-- `GET /api/v1/booksales` - Get a book sold
-
-- `POST /api/v1/clientreviews` - Create client book review
+- `POST /delivery/signup` - Create a delivery account
+- `POST /delivery/login` - Delivery login
+- `GET /delivery/address` - Get delivery address
+- `GET delivery/profile` - Get delivery profile
 
 
 ## Movies Service
 
-- `POST /api/v1/clients` - Create a client
-- `GET /api/v1/clients` - Get all a client
-- `GET /api/v1/clients/:id` - Get all a single client
-- `PATCH /api/v1/clients/:id` - Update a single client
+- `POST /movie/create` - Create a movie
+- `GET /genre/:type` - Get movie by genre type
+- `GET /:id` - Get movie by id
+- `GET /:id` - Get movie by id
 
 
 ## Notification Service
 
-- `POST /api/v1/employees` - Create an employee
-- `GET /api/v1/employees` - Get all employees
-- `GET /api/v1/employees/:id` -Get single employees
-- `PATCH /api/v1/employees/:id` - Update an employees
+- `POST /notification/sendEmail` - Send email
+- `POST/notification/sendSMS` - Send sms
+
 
 
 
 ## Payment Service
 
-- `POST /api/v1/stores` - Create a stores
-- `GET /api/v1/stores` - Get all stores
-- `GET /api/v1/stores/:id` - Get single store
-- `GET /api/v1/stores/:id/books` - Get single store books
-- `GET /api/v1/stores/:id/employees` - Get a store employees
-- `GET /api/v1/stores/:id/booksales` - Get a store booksales
-- `PATCH /api/v1/stores/:id` - Update single store
+- `POST /payment/makePurchase` - Make purchase
+- `GET /payment/getPurchaseById/:id` - Get purchase by id
 
 ## Shopping Service
 
-- `POST /api/v1/stores` - Create a stores
-- `GET /api/v1/stores` - Get all stores
-- `GET /api/v1/stores/:id` - Get single store
-- `GET /api/v1/stores/:id/books` - Get single store books
-- `GET /api/v1/stores/:id/employees` - Get a store employees
-- `GET /api/v1/stores/:id/booksales` - Get a store booksales
-- `PATCH /api/v1/stores/:id` - Update single store
+- `POST /cart` - Add movie to cart
+- `POST /wishlist` - Add movie to wishlist
+- `GET /cart/:id` - Delete movie from cart
+- `GET /cart` - Get movie in cart
+- `GET /wishlist` - Get all wishlist
+- `DELETE /wishlist/:id` - Delete movie in wishlist
+- `POST /order` - Create order
+- `GET /order/:id` - Get order by id
+- `GET /orders` - Get all orders
 
 ## 🤝 Contributing
 
