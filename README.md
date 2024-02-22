@@ -12,6 +12,8 @@ Backend to Movie Rental application that allows movie enthusiasts to browse, sea
 - nodemon
 - Sentry
 - amqplib
+- axios
+- jest
 
 ## Installation
 
