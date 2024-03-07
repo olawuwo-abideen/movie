@@ -1,8 +1,8 @@
-const CustomerService = require("../services/customer-service");
+const AdminService = require("../services/admin-service");
 
 module.exports = (app) => {
     
-    const service = new CustomerService();
+    const service = new AdminService();
     app.use('/app-events',async (req,res,next) => {
 
         const { payload } = req.body;
@@ -10,7 +10,7 @@ module.exports = (app) => {
         //handle subscribe events
         service.SubscribeEvents(payload);
 
-        console.log("============= Customer Service Received Event ================");
+        console.log("=============Admin Service Received Event ================");
         console.log(payload);
         res.json(payload);
 

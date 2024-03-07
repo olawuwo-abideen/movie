@@ -1,4 +1,4 @@
-const { CustomerRepository } = require("../database");
+const { AdminRepository } = require("../database");
 const {
   FormateData,
   GeneratePassword,
@@ -12,32 +12,32 @@ const {
 } = require("../utils/errors/app-errors");
 
 // All Business logic will be here
-class CustomerService {
+class AdminService {
   constructor() {
-    this.repository = new CustomerRepository();
+    this.repository = new AdminRepository();
   }
 
   async SignIn(userInputs) {
     const { email, password } = userInputs;
 
-    const existingCustomer = await this.repository.FindCustomer({ email });
+    const existingAdmin = await this.repository.FindAdmin({ email });
 
-    if (!existingCustomer)
+    if (!existingAdmin)
       throw new NotFoundError("user not found with provided email id!");
 
     const validPassword = await ValidatePassword(
       password,
-      existingCustomer.password,
-      existingCustomer.salt
+      existingAdmin.password,
+      existingAdmin.salt
     );
     if (!validPassword) throw new ValidationError("password does not match!");
 
     const token = await GenerateSignature({
-      email: existingCustomer.email,
-      _id: existingCustomer._id,
+      email: existingAdmin.email,
+      _id: existingAdmin._id,
     });
 
-    return { id: existingCustomer._id, token };
+    return { id: existingAdmin._id, token };
   }
 
   async SignUp(userInputs) {
@@ -48,7 +48,7 @@ class CustomerService {
 
     let userPassword = await GeneratePassword(password, salt);
 
-    const existingCustomer = await this.repository.CreateCustomer({
+    const existingAdmin = await this.repository.CreateAdmin({
       email,
       password: userPassword,
       phone,
@@ -57,9 +57,9 @@ class CustomerService {
 
     const token = await GenerateSignature({
       email: email,
-      _id: existingCustomer._id,
+      _id: existingAdmin._id,
     });
-    return { id: existingCustomer._id, token };
+    return { id: existingAdmin._id, token };
   }
 
   async AddNewAddress(_id, userInputs) {
@@ -75,9 +75,9 @@ class CustomerService {
   }
 
   async GetProfile(id) {
-    return this.repository.FindCustomerById({ id });
+    return this.repository.FindAdminById({ id });
   }
 
 }
 
-module.exports = CustomerService;
+module.exports = AdminService;
