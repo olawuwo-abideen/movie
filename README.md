@@ -1,6 +1,6 @@
 # Movie
 
-Backend to Movie Rental application that allows movie enthusiasts to browse, search for, rent,and manage their movie collections, admin can add and delete movies, customer can sigup and order for video rentage,  delivery user can create account and deliver movie to customer. 
+Microservice Backend to Movie Rental application that allows movie enthusiasts to browse, search for, rent,and manage their movie collections, admin can add and delete movies, customer can sigup and order for video rentage,  delivery user can create account and deliver movie to customer. 
 
 ## Built With:
 

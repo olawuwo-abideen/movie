@@ -1,11 +1,32 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
+const express = require("express");
+const { PORT } = require("./config");
+const { databaseConnection } = require("./database");
+const expressApp = require("./express-app");
+const { CreateChannel } = require("./utils");
+const errorHandler = require("./utils/errors");
 
+const StartServer = async () => {
+  const app = express();
 
-const app = express();
+  await databaseConnection();
 
+  const channel = await CreateChannel();
 
-app.listen(3001, () => {
-    console.log(`Admin Services running on port ${3001}`)
-})
+  await expressApp(app, channel);
+
+  errorHandler(app);
+
+  app
+    .listen(PORT, () => {
+      console.log(`listening to port ${PORT}`);
+    })
+    .on("error", (err) => {
+      console.log(err);
+      process.exit();
+    })
+    .on("close", () => {
+      channel.close();
+    });
+};
+
+StartServer();

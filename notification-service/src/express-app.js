@@ -13,7 +13,7 @@ module.exports = async (app) => {
     const channel = await CreateChannel()
 
     
-    customer(app, channel);
+    notification(app, channel);
  
     
 }
