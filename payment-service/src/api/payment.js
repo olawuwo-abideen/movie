@@ -29,7 +29,7 @@ module.exports = (app, channel) => {
 
 
 
-  app.get('/payment/getPurchaseById/:id', (req, res, next) => {
+  app.get('/payment/getPurchaseById/:id', async (req, res, next) => {
 
     const paymentId = req.params.id;
 
