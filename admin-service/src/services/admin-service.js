@@ -1,4 +1,4 @@
-const { AdminRepository } = require("../database");
+const { MovieRepository } = require("../database");
 const {
   FormateData,
   GeneratePassword,
@@ -61,22 +61,47 @@ class AdminService {
     });
     return { id: existingAdmin._id, token };
   }
+}
+  class MovieService {
 
-  async AddNewAddress(_id, userInputs) {
-    const { street, postalCode, city, country } = userInputs;
-
-    return this.repository.CreateAddress({
-      _id,
-      street,
-      postalCode,
-      city,
-      country,
-    });
-  }
+    constructor(){
+        this.repository = new MovieRepository();
+    }
+    
 
   async GetProfile(id) {
     return this.repository.FindAdminById({ id });
   }
+
+
+async CreateMovie(movieInputs){
+
+  const movieResult = await this.repository.CreateMovie(movieInputs)
+  return FormateData(movieResult);
+}
+
+async GetMoviesByCategory(category){
+
+  const movies = await this.repository.FindByCategory(category);
+  return FormateData(movies)
+
+}
+
+async GetMovies(){
+  const movies = await this.repository.Movies();
+
+  let categories = {};
+
+  movies.map(({ genre }) => {
+      categories[genre] = genre;
+  });
+  
+  return FormateData({
+      movies,
+      categories:  Object.keys(categories)  
+     })
+
+}
 
 }
 
